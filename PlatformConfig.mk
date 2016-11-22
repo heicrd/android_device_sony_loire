@@ -15,6 +15,9 @@
 # Platform path
 PLATFORM_COMMON_PATH := device/sony/loire
 
+# Include path
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+
 TARGET_BOARD_PLATFORM := msm8952
 
 TARGET_ARCH := arm64
@@ -33,6 +36,8 @@ TARGET_USES_64_BIT_BINDER := true
 TARGET_USES_64_BIT_BCMDHD := true
 
 ENABLE_CPUSETS := true
+
+TARGET_KERNEL_SOURCE := kernel/sony
 
 BOARD_KERNEL_BASE        := 0x20000000
 BOARD_KERNEL_PAGESIZE    := 4096
@@ -78,7 +83,7 @@ BOARD_CUSTOM_BT_CONFIG := $(PLATFORM_COMMON_PATH)/bluetooth/vnd_generic.txt
 TARGET_PER_MGR_ENABLED := true
 
 # NFC
-NXP_CHIP_TYPE := PN547C2
+BOARD_NFC_CHIPSET := pn547
 
 # FM definitions for Broadcom solution
 BOARD_HAVE_ALTERNATE_FM := true
@@ -86,6 +91,9 @@ BOARD_HAVE_BCM_FM := true
 
 # Props for hotplugging
 TARGET_SYSTEM_PROP += $(PLATFORM_COMMON_PATH)/system.prop
+
+# Camera
+USE_DEVICE_SPECIFIC_CAMERA := true
 
 # SELinux
 BOARD_SEPOLICY_DIRS += $(PLATFORM_COMMON_PATH)/sepolicy

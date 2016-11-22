@@ -16,7 +16,6 @@
 PLATFORM_COMMON_PATH := device/sony/loire
 
 $(call inherit-product, device/sony/common/common.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
 
 SOMC_PLATFORM := loire
@@ -68,7 +67,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.nfc_extras \
     NfcNci \
-    Tag
+    Tag \
+    nfc_nci.pn54x.default
 
 # Audio
 PRODUCT_PACKAGES += \
