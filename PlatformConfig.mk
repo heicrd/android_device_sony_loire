@@ -15,6 +15,9 @@
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
+# Platform path
+PLATFORM_COMMON_PATH := device/sony/loire
+
 TARGET_BOARD_PLATFORM := msm8952
 
 TARGET_ARCH := arm64
@@ -36,13 +39,14 @@ ENABLE_CPUSETS := true
 
 TARGET_KERNEL_SOURCE := kernel/sony
 
-BOARD_KERNEL_BASE        := 0x00000000
+BOARD_KERNEL_BASE        := 0x20000000
 BOARD_KERNEL_PAGESIZE    := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
 
 BOARD_KERNEL_CMDLINE += console=ttyHSL0,115200,n8
 BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1
+BOARD_KERNEL_CMDLINE += androidboot.bootdevice=7824900.sdhci
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 
@@ -51,13 +55,13 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 
-#Reserve space for data encryption (22225616896-16384)
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 7843348480
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 22225600512
-BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
+#Reserve space for data encryption (21742424064-16384)
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 5513412608
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 21742407680
+BOARD_CACHEIMAGE_PARTITION_SIZE := 260014080
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
-TARGET_RECOVERY_FSTAB = device/sony/loire/rootdir/fstab.loire
+TARGET_RECOVERY_FSTAB = $(PLATFORM_COMMON_PATH)/rootdir/fstab.loire
 
 # Wi-Fi definitions for Broadcom solution
 BOARD_WLAN_DEVICE           := bcmdhd
@@ -71,10 +75,10 @@ WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
 
 # BT definitions for Broadcom solution
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/loire/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(PLATFORM_COMMON_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_CUSTOM_BT_CONFIG := device/sony/loire/bluetooth/vnd_generic.txt
+BOARD_CUSTOM_BT_CONFIG := $(PLATFORM_COMMON_PATH)/bluetooth/vnd_generic.txt
 
 # RIL
 TARGET_PER_MGR_ENABLED := true
@@ -87,12 +91,12 @@ BOARD_HAVE_ALTERNATE_FM := true
 BOARD_HAVE_BCM_FM := true
 
 # Props for hotplugging
-TARGET_SYSTEM_PROP += device/sony/loire/system.prop
+TARGET_SYSTEM_PROP += $(PLATFORM_COMMON_PATH)/system.prop
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS += device/sony/loire/sepolicy
+BOARD_SEPOLICY_DIRS += $(PLATFORM_COMMON_PATH)/sepolicy
 
 include device/sony/common/CommonConfig.mk
